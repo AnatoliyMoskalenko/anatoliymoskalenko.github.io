@@ -63,7 +63,7 @@ module.exports = "<th scope=\"row\">{{ index + 1 }}</th>\n<td><span *ngIf=\"cont
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"container\">\n  <div class=\"row\">\n    <div class=\"col-12\">\n      <h1 class=\"h1\">Contacts</h1>\n      <h3>Total {{ contacts.length }} persons</h3>\n      <table class=\"table table-striped mt-3 main-table\">\n        <thead>\n        <tr>\n          <th scope=\"col\">N</th>\n          <th scope=\"col\"><a href=\"#\" (click)=\"changeSort('name')\">Name</a></th>\n          <th scope=\"col\"><a href=\"#\" (click)=\"changeSort('email')\">E-mail</a></th>\n          <th scope=\"col\"><a href=\"#\" (click)=\"changeSort('phone')\">Phone</a></th>\n          <th scope=\"col\"><a href=\"#\" (click)=\"changeSort('country')\">Country</a></th>\n          <th scope=\"col\"><a href=\"#\" (click)=\"changeSort('position')\">Position</a></th>\n        </tr>\n        </thead>\n        <tbody>\n        <tr app-table-row *ngFor=\"let contact of getPage(); index as i\" [contact]=\"contact\" [index]=\"i\"></tr>\n        </tbody>\n      </table>\n\n      <ngb-pagination class=\"d-flex justify-content-center\" [collectionSize]=\"contacts.length\" [pageSize]=\"pageSize\"\n                      [(page)]=\"pageNumber\"></ngb-pagination>\n    </div>\n  </div>\n</div>\n"
+module.exports = "<div class=\"container\">\n  <div class=\"row\">\n    <div class=\"col-12\">\n      <h1 class=\"h1\">Contacts</h1>\n      <h3>Total {{ contacts.length }} persons</h3>\n      <table class=\"table table-striped mt-3 main-table\">\n        <thead>\n        <tr>\n          <th scope=\"col\">N</th>\n          <th scope=\"col\"><a routerLink=\"\" (click)=\"changeSort('name',$event)\">Name</a></th>\n          <th scope=\"col\"><a routerLink=\"\" (click)=\"changeSort('email',$event)\">E-mail</a></th>\n          <th scope=\"col\"><a routerLink=\"\" (click)=\"changeSort('phone',$event)\">Phone</a></th>\n          <th scope=\"col\"><a routerLink=\"\" (click)=\"changeSort('country',$event)\">Country</a></th>\n          <th scope=\"col\"><a routerLink=\"\" (click)=\"changeSort('position',$event)\">Position</a></th>\n        </tr>\n        </thead>\n        <tbody>\n        <tr app-table-row *ngFor=\"let contact of getPage(); index as i\" [contact]=\"contact\" [index]=\"i\"></tr>\n        </tbody>\n      </table>\n\n      <ngb-pagination class=\"d-flex justify-content-center\" [collectionSize]=\"contacts.length\" [pageSize]=\"pageSize\"\n                      [(page)]=\"pageNumber\"></ngb-pagination>\n    </div>\n  </div>\n</div>\n"
 
 /***/ }),
 
@@ -404,7 +404,8 @@ let TableComponent = class TableComponent {
             }
         }
     }
-    changeSort(field) {
+    changeSort(field, event) {
+        event.stopPropagation();
         if (this.sortField === field) {
             this.sortField = null;
         }
